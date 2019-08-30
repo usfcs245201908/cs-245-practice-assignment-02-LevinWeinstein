@@ -10,10 +10,69 @@
 class NQueens {
     private int boardSize;
     private int[][] board;
+    private boolean solved;
+    private boolean tried;
 
     NQueens(int size) {
         board = new int[size][size];
         boardSize = size;
+        solved = false;
+        tried = false;
+    }
+
+    /**
+     * pre-condition:
+     * @return whether or not is is possible to place #{boardSize}
+     *         queens on #{board}.
+     *
+     * @throws Exception : If a non-positive board size is set.
+     */
+    boolean placeNQueens() throws Exception {
+
+        if (boardSize < 1)
+            throw new Exception("Board Size must be a positive number");
+
+        if (tried)
+            return solved;
+
+        solved = placeColumn(0);
+        return solved;
+    }
+
+    /**
+     * Inner method of placeNQueens, which allows for a "col" parameter.
+     */
+    private boolean placeColumn(int col) {
+
+        if (col >= boardSize)
+            return true;
+
+        for (int i = 0; i < boardSize; i++) {
+            if (noCollisions(i, col)) {
+                board[i][col] = 1;
+                if (placeColumn(col+ 1))
+                    return true;
+                board[i][col] = 0;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * The printToConsole function, as required in the spec.
+     */
+    void printToConsole(){
+        if (!solved){
+            System.out.format("Error: No Solution for N = %d\n", boardSize);
+            return;
+        }
+
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[0].length; j++){
+                System.out.format("%c ", (board[i][j] == 1 ? 'Q' : '_'));
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -43,49 +102,10 @@ class NQueens {
         return true;
     }
 
-    /**
-     * @return whether or not is is possible to place #{boardSize}
-     *         queens on #{board}.
-     *
-     * @throws Exception : If a non-positive board size is set.
-     */
-    public boolean placeNQueens() throws Exception {
-        if (boardSize < 1)
-            throw new Exception("Board Size must be a positive number");
-        return placeColumn(0);
-    }
-
-
-    /**
-     * Inner method of placeNQueens, which allows for a "col" parameter.
-     */
-    private boolean placeColumn(int col) {
-
-        if (col >= boardSize)
-            return true;
-
-        for (int i = 0; i < boardSize; i++) {
-            if (noCollisions(i, col)) {
-                board[i][col] = 1;
-                if (placeColumn(col+ 1))
-                    return true;
-                board[i][col] = 0;
-            }
-        }
-        return false;
-    }
-
-    /* private static void print2dArray(int [][] n){
-        for (int i = 0; i < n.length; i++){
-            for (int j = 0; j < n[0].length; j++){
-                System.out.format("[%d]", n[i][j]);
-            }
-            System.out.println();
-        }
-    }
     public static void main(String[] args) throws Exception {
         NQueens n = new NQueens(8);
 
         System.out.println(n.placeNQueens());
-    } */
+        n.printToConsole();
+    }
 }
