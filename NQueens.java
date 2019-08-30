@@ -82,7 +82,7 @@ class NQueens {
      * @param col : Int => the column of the desired queen placement
      *
      * @return Boolean : whether or not there are already Queens
-     *                   place which would conflict with a Queen
+     *                   which would conflict with a Queen
      *                   placed at board[row][col]
      */
     private boolean noCollisions(int row, int col) {
