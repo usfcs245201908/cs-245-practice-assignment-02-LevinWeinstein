@@ -35,6 +35,7 @@ class NQueens {
         if (tried)
             return solved;
 
+        tried = true;
         solved = placeColumn(0);
         return solved;
     }
