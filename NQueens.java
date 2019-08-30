@@ -3,8 +3,6 @@
  * Class  : CS 245
  * Date   : Friday, August 30, 2019
  * Purpose: This class is designed to provide a solution to the NQueens Problem.
- *          The class is not a standalong program, but meant to be used by other classes,
- *          and is tested through the "Practice02Test" class.
  */
 
 class NQueens {
